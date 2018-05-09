@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './css/App.css';
 import './css/fixed-data-table.css';
 import FilterableTable from "./FilterableTable";
 

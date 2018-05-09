@@ -2,7 +2,6 @@ import {Cell, Column, Table} from "fixed-data-table-2";
 import React from "react";
 import ThreatMap from "./ThreatMap";
 import DataStore from "./DataStore";
-import {TextCell} from "./helpers/Cells";
 
 class FilterableTable extends React.Component {
     constructor(props) {
@@ -156,6 +155,19 @@ class FilterableTable extends React.Component {
         );
     }
 }
+
+class TextCell extends React.PureComponent {
+    render() {
+        const {data, rowIndex, columnKey, ...props} = this.props;
+        return (
+            <Cell {...props}>
+                {data.getObjectAt(rowIndex)[columnKey]}
+            </Cell>
+        );
+    }
+}
+
+export {TextCell}
 
 class DataListWrapper {
     constructor(indexMap, data) {
