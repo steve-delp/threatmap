@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/steve-delp/threatmap.svg?branch=master)](https://travis-ci.org/steve-delp/threatmap)
 
-Threatmap
+Threat Map
 ===========
 
 This is a simple React app that displays sites known to have distributed malware.  The app currently only displays ransomware sites within the United States.
@@ -27,11 +27,11 @@ $ ./gradlew bootRun
 
 - Copy or clone this git repo [threatmap](https://github.com/steve-delp/threatmap.git)
 - Get an API key for google maps from [developers.google.com](https://developers.google.com/maps/documentation/javascript/get-api-key)
-- Add the key to the top of the ThreatMap.js file.
+- Add the key to the top of the run.sh script.
 - Start the app.
 ```sh
 $ cd threatmap
-$ npm start
+$ ./run.sh
 ```
 
 Credits
