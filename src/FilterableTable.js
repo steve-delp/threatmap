@@ -4,9 +4,11 @@ import ThreatMap from "./ThreatMap";
 import DataStore from "./DataStore";
 
 class FilterableTable extends React.Component {
+
+    ransomwareSiteUrl = `http://localhost:8080/ransomwareSites`;
+
     constructor(props) {
         super(props);
-
         this.state = {
             dataList: new DataStore([]),
             filteredDataList: new DataListWrapper([], new DataStore([]))
@@ -14,8 +16,17 @@ class FilterableTable extends React.Component {
         this._onFilterChange = this._onFilterChange.bind(this);
     }
 
+    /**
+     * Loads the table and map after they have been mounted
+     */
     componentDidMount() {
+        this.getDataFromService();
+    }
 
+    /***
+     * GETs the sites from the service
+     */
+    getDataFromService() {
         const myInit = {
             method: 'GET',
             headers: {
@@ -24,7 +35,7 @@ class FilterableTable extends React.Component {
             }
         };
 
-        const myRequest = new Request(`http://localhost:8080/ransomwareSites`, myInit);
+        const myRequest = new Request(this.ransomwareSiteUrl, myInit);
 
         fetch(myRequest).then(function (response) {
             return response.json();
@@ -41,22 +52,26 @@ class FilterableTable extends React.Component {
                     malware: responseJson[i].malware,
                 });
             }
-            cache =  new DataStore(cache);
+            cache = new DataStore(cache);
+            // setting state here to share data between the filtered table and map components
             this.setState({
                 dataList: cache,
                 filteredDataList: new DataListWrapper(Array.from(Array(cache.size).keys()), cache)
             });
-        });
+        }).catch(error => console.log("Error fetching data from server." + error));
     }
 
-    _onFilterChange(e) {
-        if (!e.target.value) {
+    /***
+     * Filters data contained in the data store based on user input
+     */
+    _onFilterChange(event) {
+        if (!event.target.value) {
             this.setState({
                 filteredDataList: this.state.dataList,
             });
         }
 
-        const filterBy = e.target.value.toLowerCase();
+        const filterBy = event.target.value.toLowerCase();
         const size = this.state.dataList.getSize();
         const filteredIndexes = [];
         for (let index = 0; index < size; index++) {
@@ -72,34 +87,26 @@ class FilterableTable extends React.Component {
     }
 
     render() {
-
         const searchBoxStyle = {
-            // padding: 10,
-            // margin: 10,
             backgroundColor: "#f9fffd",
             color: "#333",
-            // display: "inline-block",
             fontFamily: "monospace",
             fontSize: 18,
             textAlign: "left",
             width: 750
         };
-
-        console.log("Render Table ....");
         const {filteredDataList} = this.state;
-        console.log("filteredDataList: " + filteredDataList)
         return (
             <div>
                 <br />
                 <h3>Filter By State</h3>
                 <input style={searchBoxStyle}
-                    onChange={this._onFilterChange}
-                    placeholder="Enter state name"
+                       onChange={this._onFilterChange}
+                       placeholder="Enter state"
                 />
                 <br />
                 <br />
                 <ThreatMap markers={filteredDataList.getAll()}/>
-                <br />
                 <br />
                 <Table
                     rowHeight={50}
