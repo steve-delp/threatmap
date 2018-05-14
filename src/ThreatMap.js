@@ -2,7 +2,7 @@ import React from 'react';
 import {Gmaps, Marker} from 'react-gmaps';
 
 // google maps API key
-const params = {v: '3.exp', key: 'ADD YOUR API KEY HERE!!!!!!!!!!', markers: []};
+const params = {v: '3.exp', key: process.env.REACT_APP_GOOGLE_API_KEY, markers: []};
 
 // coords of the center of the US
 const centerUS = {lat: 42.877742, lng: -97.380979};
@@ -14,8 +14,8 @@ class ThreatMap extends React.Component {
         // this is how data is shared between the table and the map
         const locations = this.props.markers;
 
-        function createMarker(location) {
-            return <Marker lat={location.lat} lng={location.lon}/>;
+        function createMarker(location, index) {
+            return <Marker key={index} lat={location.lat} lng={location.lon}/>;
         }
 
         // set defaults to the center of the US if no state has been selected

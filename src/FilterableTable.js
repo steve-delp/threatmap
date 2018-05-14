@@ -5,7 +5,6 @@ import DataStore from "./DataStore";
 
 class FilterableTable extends React.Component {
 
-    ransomwareSiteUrl = `http://localhost:8080/ransomwareSites`;
 
     constructor(props) {
         super(props);
@@ -35,7 +34,7 @@ class FilterableTable extends React.Component {
             }
         };
 
-        const myRequest = new Request(this.ransomwareSiteUrl, myInit);
+        const myRequest = new Request(process.env.REACT_APP_THREATMAP_SERVER_URL + '/ransomwareSites' , myInit);
 
         fetch(myRequest).then(function (response) {
             return response.json();
@@ -88,18 +87,20 @@ class FilterableTable extends React.Component {
 
     render() {
         const searchBoxStyle = {
-            backgroundColor: "#f9fffd",
             color: "#333",
             fontFamily: "monospace",
             fontSize: 18,
             textAlign: "left",
             width: 750
         };
+        const headerStyle = {
+            textAlign: "center"
+        }
         const {filteredDataList} = this.state;
         return (
             <div>
-                <br />
-                <h3>Filter By State</h3>
+                <h1 style={headerStyle}>US Ransomware Sites</h1>
+                <h4><b>Filter By State</b></h4>
                 <input style={searchBoxStyle}
                        onChange={this._onFilterChange}
                        placeholder="Enter state"
