@@ -34,7 +34,8 @@ class FilterableTable extends React.Component {
             }
         };
 
-        const myRequest = new Request(process.env.REACT_APP_THREATMAP_SERVER_URL + '/ransomwareSites' , myInit);
+        let serverUrl = process.env.REACT_APP_THREATMAP_SERVER_URL || "http://localhost:8080";
+        const myRequest = new Request(serverUrl + '/ransomwareSites' , myInit);
 
         fetch(myRequest).then(function (response) {
             return response.json();

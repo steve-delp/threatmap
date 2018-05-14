@@ -2,7 +2,9 @@ import React from 'react';
 import {Gmaps, Marker} from 'react-gmaps';
 
 // google maps API key
-const params = {v: '3.exp', key: process.env.REACT_APP_GOOGLE_API_KEY, markers: []};
+
+const key = process.env.REACT_APP_GOOGLE_API_KEY || "";
+const params = {v: '3.exp', key: key, markers: []};
 
 // coords of the center of the US
 const centerUS = {lat: 42.877742, lng: -97.380979};
