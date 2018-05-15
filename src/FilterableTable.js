@@ -4,12 +4,11 @@ import React from "react";
 class FilterableTable extends React.Component {
 
     render() {
-        const {dataList} = this.props.filteredDataList;
         return (
             <div>
                 <Table
                     rowHeight={50}
-                    rowsCount={dataList.getSize()}
+                    rowsCount={this.props.filteredDataList.getSize()}
                     headerHeight={50}
                     width={750}
                     height={500}
@@ -17,42 +16,42 @@ class FilterableTable extends React.Component {
                     <Column
                         columnKey="id"
                         header={<Cell>Id</Cell>}
-                        cell={<TextCell data={dataList} />}
+                        cell={<TextCell data={this.props.filteredDataList} />}
                         fixed={true}
                         width={50}
                     />
                     <Column
                         columnKey="state"
                         header={<Cell>State</Cell>}
-                        cell={<TextCell data={dataList} />}
+                        cell={<TextCell data={this.props.filteredDataList} />}
                         fixed={true}
                         width={100}
                     />
                     <Column
                         columnKey="malware"
                         header={<Cell>Malware</Cell>}
-                        cell={<TextCell data={dataList} />}
+                        cell={<TextCell data={this.props.filteredDataList} />}
                         fixed={true}
                         width={200}
                     />
                     <Column
                         columnKey="ip"
                         header={<Cell>IP</Cell>}
-                        cell={<TextCell data={dataList} />}
+                        cell={<TextCell data={this.props.filteredDataList} />}
                         fixed={true}
                         width={200}
                     />
                     <Column
                         columnKey="lat"
                         header={<Cell>Lat</Cell>}
-                        cell={<TextCell data={dataList} />}
+                        cell={<TextCell data={this.props.filteredDataList} />}
                         fixed={true}
                         width={100}
                     />
                     <Column
                         columnKey="lon"
                         header={<Cell>Lon</Cell>}
-                        cell={<TextCell data={dataList} />}
+                        cell={<TextCell data={this.props.filteredDataList} />}
                         fixed={true}
                         width={100}
                     />

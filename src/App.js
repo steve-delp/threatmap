@@ -6,8 +6,6 @@ import ThreatMap from "./ThreatMap";
 import DataStore from "./DataStore";
 import DataListWrapper from "./DataListWrapper";
 
-require('dotenv').config();
-
 class App extends Component {
 
     constructor(props) {
@@ -15,7 +13,8 @@ class App extends Component {
 
         this.state = {
             dataList: new DataStore([]),
-            filteredDataList: new DataListWrapper([], new DataStore([]))
+            filteredDataList: new DataListWrapper([], new DataStore([])),
+            dataLoaded: false
         };
 
         this._onFilterChange = this._onFilterChange.bind(this);
@@ -35,6 +34,7 @@ class App extends Component {
         }
 
         return (
+            this.state.dataLoaded &&
             <div className="App container">
                 <header>
                     <h1 style={headerStyle}>US Ransomware Sites</h1>
@@ -43,10 +43,10 @@ class App extends Component {
                            onChange={this._onFilterChange}
                            placeholder="Enter state"
                     />
-                    <br />
-                    <br />
-                    <ThreatMap markers={this.state.filteredDataList}/>
-                    <br />
+                    <br/>
+                    <br/>
+                    <ThreatMap markers={this.state.filteredDataList.getAll()}/>
+                    <br/>
                     <FilterableTable filteredDataList={this.state.filteredDataList}/>
                 </header>
             </div>
@@ -66,7 +66,7 @@ class App extends Component {
         };
 
         let serverUrl = process.env.REACT_APP_THREATMAP_SERVER_URL || "http://localhost:8080";
-        const myRequest = new Request(serverUrl + '/ransomwareSites' , myInit);
+        const myRequest = new Request(serverUrl + '/ransomwareSites', myInit);
 
         fetch(myRequest).then(function (response) {
             return response.json();
@@ -87,7 +87,8 @@ class App extends Component {
             // setting state here to share data between the filtered table and map components
             this.setState({
                 dataList: cache,
-                filteredDataList: new DataListWrapper(Array.from(Array(cache.size).keys()), cache)
+                filteredDataList: new DataListWrapper(Array.from(Array(cache.size).keys()), cache),
+                dataLoaded: true
             });
         }).catch(error => console.log("Error fetching data from server." + error));
     }
