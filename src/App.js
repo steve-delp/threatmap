@@ -2,12 +2,9 @@ import React, {Component} from 'react';
 import './css/App.css';
 import './css/fixed-data-table.css';
 import FilterableTable from "./FilterableTable";
-<<<<<<< HEAD
 import ThreatMap from "./ThreatMap";
 import DataStore from "./DataStore";
 import DataListWrapper from "./DataListWrapper";
-=======
->>>>>>> master
 
 class App extends Component {
 
