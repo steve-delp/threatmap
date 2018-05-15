@@ -2,7 +2,6 @@ import {Cell, Column, Table} from "fixed-data-table-2";
 import React from "react";
 
 class FilterableTable extends React.Component {
-
     render() {
         return (
             <div>
