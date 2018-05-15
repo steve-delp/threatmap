@@ -65,7 +65,7 @@ class App extends Component {
             }
         };
 
-        let serverUrl = process.env.REACT_APP_THREATMAP_SERVER_URL || "http://localhost:8080";
+        let serverUrl = process.env.REACT_APP_THREATMAP_SERVER_URL || "http://porterddog.com:35788"
         const myRequest = new Request(serverUrl + '/ransomwareSites', myInit);
 
         fetch(myRequest).then(function (response) {
