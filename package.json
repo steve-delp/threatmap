@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^1.0.0",
+    "@material-ui/icons": "^1.0.0",
     "react": "^16.3.2",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.3.2",
     "react-gmaps": "^1.9.0",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
     "whatwg-fetch": "^2.0.4"
   },
@@ -16,7 +19,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "devDependencies": {
-    "fixed-data-table-2": "^0.8.12"
-  }
+  "devDependencies": {}
 }

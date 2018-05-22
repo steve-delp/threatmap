@@ -3,7 +3,7 @@ import {Gmaps, Marker} from 'react-gmaps';
 
 // google maps API key
 
-const key = process.env.REACT_APP_GOOGLE_API_KEY || "AIzaSyAE6SYzw5UHNrgn0yRNL3FPqMgWmnBlpY8";
+const key = process.env.REACT_APP_GOOGLE_API_KEY || "";
 
 const params = {v: '3.exp', key: key, markers: []};
 
@@ -11,6 +11,13 @@ const params = {v: '3.exp', key: key, markers: []};
 const centerUS = {lat: 42.877742, lng: -97.380979};
 
 class ThreatMap extends React.Component {
+
+
+    // onMapCreated(map) {
+    //     map.setOptions({
+    //         disableDefaultUI: true
+    //     });
+    // }
 
     render() {
 
@@ -36,10 +43,9 @@ class ThreatMap extends React.Component {
         }
 
         return (
-            <div>
                 <Gmaps
-                    width={'750px'}
-                    height={'600px'}
+                    width={'100%'}
+                    height={'400px'}
                     lat={lat}
                     lng={lon}
                     zoom={zoom}
@@ -48,7 +54,6 @@ class ThreatMap extends React.Component {
                     onMapCreated={this.onMapCreated}>
                     {markers}
                 </Gmaps>
-            </div>
         );
     }
 }

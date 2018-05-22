@@ -1,10 +1,35 @@
 import React, {Component} from 'react';
-import './css/App.css';
-import './css/fixed-data-table.css';
-import FilterableTable from "./FilterableTable";
+
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+
+
+import MaterialFilterTable from "./MaterialFilterTable";
 import ThreatMap from "./ThreatMap";
 import DataStore from "./DataStore";
 import DataListWrapper from "./DataListWrapper";
+
+
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing.unit * 2,
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    }
+});
 
 class App extends Component {
 
@@ -22,33 +47,37 @@ class App extends Component {
 
     render() {
 
-        const searchBoxStyle = {
-            color: "#333",
-            fontFamily: "monospace",
-            fontSize: 18,
-            textAlign: "left",
-            width: 750
-        };
-        const headerStyle = {
-            textAlign: "center"
-        }
+        const { classes } = this.props;
 
         return (
             this.state.dataLoaded &&
-            <div className="App container">
-                <header>
-                    <h1 style={headerStyle}>US Ransomware Sites</h1>
-                    <h4><b>Filter By State</b></h4>
-                    <input style={searchBoxStyle}
-                           onChange={this._onFilterChange}
-                           placeholder="Enter state"
-                    />
-                    <br/>
-                    <br/>
-                    <ThreatMap markers={this.state.filteredDataList.getAll()}/>
-                    <br/>
-                    <FilterableTable filteredDataList={this.state.filteredDataList}/>
-                </header>
+            <div className={classes.root}>
+                <AppBar position="static" color="default">
+                    <Toolbar>
+                        <Typography variant="title" color="inherit">
+                            US Threat Map
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <Grid container spacing={24}>
+                    <Grid item xs={12}>
+                        <TextField
+                            error
+                            id="search"
+                            label="Search By State: "
+                            type="search"
+                            className={classes.textField}
+                            onChange={this._onFilterChange}
+                            margin="normal"
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <ThreatMap markers={this.state.filteredDataList.getAll()}/>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <MaterialFilterTable filteredDataList={this.state.filteredDataList.getAll()}/>
+                    </Grid>
+                </Grid>
             </div>
         );
     }
@@ -108,7 +137,7 @@ class App extends Component {
         const filteredIndexes = [];
         for (let index = 0; index < size; index++) {
             const {state} = this.state.dataList.getObjectAt(index);
-            if (state.toLowerCase().indexOf(filterBy) !== -1) {
+            if (state.toLowerCase().startsWith(filterBy)) {
                 filteredIndexes.push(index);
             }
         }
@@ -126,4 +155,8 @@ class App extends Component {
     }
 }
 
-export default App;
+App.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(App);
