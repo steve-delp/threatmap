@@ -95,13 +95,6 @@ const TablePaginationActionsWrapped = withStyles(actionsStyles, {withTheme: true
     TablePaginationActions,
 );
 
-let counter = 0;
-
-function createData(name, calories, fat) {
-    counter += 1;
-    return {id: counter, name, calories, fat};
-}
-
 const styles = theme => ({
     root: {
         width: '100%',
